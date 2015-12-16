@@ -18,7 +18,7 @@ class EventsController extends AppController
      */
     public function index()
     {
-        $this->set('events', $this->paginate($this->Events));
+        $this->set('events', $this->Events->find('all'));
         $this->set('_serialize', ['events']);
     }
 

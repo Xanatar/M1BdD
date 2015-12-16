@@ -6,29 +6,26 @@
 </nav>
 <div class="events index large-9 medium-8 columns content">
     <h3><?= __('Events') ?></h3>
+    <?= ''//debug($events->toArray()) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('title') ?></th>
-                <th><?= $this->Paginator->sort('description') ?></th>
-                <th><?= $this->Paginator->sort('start') ?></th>
-                <th><?= $this->Paginator->sort('end') ?></th>
-                <th><?= $this->Paginator->sort('nb_min') ?></th>
-                <th><?= $this->Paginator->sort('nb_max') ?></th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Nombre de joueurs</th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($events as $event): ?>
-            <tr>
-                <td><?= $this->Number->format($event->id) ?></td>
+            <tr onclick="location.href = <?= $this->Url->build(['controller' => 'events', 'action' => 'view', $event->id]) ?>">
                 <td><?= h($event->title) ?></td>
-                <td><?= h($event->description) ?></td>
+                <td><?= $this->Text->truncate($event->description, 100) ?></td>
                 <td><?= h($event->start) ?></td>
                 <td><?= h($event->end) ?></td>
-                <td><?= $this->Number->format($event->nb_min) ?></td>
-                <td><?= $this->Number->format($event->nb_max) ?></td>
+                <td><?= $this->Number->format($event->nb_min) ?>/<?= $this->Number->format($event->nb_max) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $event->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $event->id]) ?>
@@ -38,12 +35,4 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
-    </div>
 </div>
