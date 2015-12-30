@@ -19,11 +19,11 @@ $this->assign('title', 'Evénement : ' . h($event->title));
         <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $event->id], ['class' => 'button small alert', 'confirm' => __('Êtes-vous sûr de vouloir supprimer {0} ?', $event->title)]) ?>
     <?php endif; ?>
 </article>
-<article class="event-view">
-    <h2 class="event-title"><?= h($event->title) ?></h2>
-    <div class="event-date"><?= $this->element('calendar-day', ['date' => $event->start]) ?></div>
-    <div class="event-description"><?= h($event->description) ?></div>
-    <div class="event-data-sup">
+<article class="view">
+    <h2 class="view-title"><?= h($event->title) ?></h2>
+    <div class="view-date"><?= $this->element('calendar-day', ['date' => $event->start]) ?></div>
+    <div class="view-description"><?= h($event->description) ?></div>
+    <div class="view-data-sup">
         <strong>Fin de l'événement : </strong><?= $event->end->i18nFormat('dd/MM/yyyy HH:mm') ?>
         <br>
         <strong>Âges : </strong><?php if($event->age_min === null && $event->age_max === null) echo __('Tous'); else { if($event->age_min !== null) echo __('à partir de {0} ans ', $this->Number->format($event->age_min)); if($event->age_max !== null) echo __('jusqu\'à {0} ans', $this->Number->format($event->age_max)); } ?>

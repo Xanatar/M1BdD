@@ -163,10 +163,40 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('Le compte a été supprimé.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Le compte n\'a pas pu être supprimé. Veuillez réessayer..'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function promote($id = null) {
+        if($this->Auth->user('role') !== 'admin') {
+            $this->Flash->error(__('Vous n\'avez pas les droits pour faire cela.'));
+        } else {
+            $user = $this->Users->get($id);
+            $user->role = 'admin';
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+        }
+        return $this->redirect(['action' => 'view', $id]);
+    }
+
+    public function demote($id = null) {
+        if($this->Auth->user('role') !== 'admin') {
+            $this->Flash->error(__('Vous n\'avez pas les droits pour faire cela.'));
+        } else {
+            $user = $this->Users->get($id);
+            $user->role = 'member';
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+        }
+        return $this->redirect(['action' => 'view', $id]);
     }
 }
