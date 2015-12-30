@@ -92,7 +92,7 @@ class EventsController extends AppController
             $event = $this->Events->patchEntity($event, $this->request->data);
             if ($this->Events->save($event)) {
                 $this->Flash->success(__('The event has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $event->id]);
             } else {
                 $this->Flash->error(__('The event could not be saved. Please, try again.'));
             }
@@ -121,6 +121,13 @@ class EventsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * Join method
+     *
+     * @param string|null $id Event id.
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
     public function join($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $event = $this->Events->get($id, ['contain' => ['Users']]);

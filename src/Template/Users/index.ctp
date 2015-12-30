@@ -17,7 +17,7 @@ $this->assign('title', 'Membres');
         <tbody>
             <?php foreach ($users as $user): ?>
             <tr>
-                <td><?= h($user->username) ?></td>
+                <td><?= $this->Html->link($user->username, ['controller' => 'users', 'action' => 'view', $user->id], ['escape' => false]) ?></td>
                 <td><?= h($user->lastname) ?></td>
                 <td><?= h($user->firstname) ?></td>
                 <td><?= $user->birthday->i18nFormat('dd/MM/yyyy') ?></td>

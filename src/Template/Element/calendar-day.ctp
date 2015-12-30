@@ -37,7 +37,9 @@ $dayL = $d[$date->i18nFormat('e') - 1]; // @see http://www.icu-project.org/apire
             <div class="calendar-day-literal"><?= $dayL ?></div>
         </div>
     </div>
+    <?php if(!isset($time) || $time === true): ?>
     <div class="calendar-time">
         <span class="calendar-hour"><?= $date->hour ?><span> : <span class="calendar-hour"><?= $date->minute ?></span>
     </div>
+    <?php endif; ?>
 </div>

@@ -448,9 +448,9 @@ article.actions {
       width: 140px;
       flex-shrink: 0; }
 
-.event-view .event-title {
+.view .view-title {
   text-align: center; }
-.event-view .event-date {
+.view .view-date {
   text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
