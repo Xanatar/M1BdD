@@ -14,7 +14,7 @@ $this->assign('title', 'Membre : ' . $user->username);
         <?= $this->Html->link('Modifier', ['controller' => 'users', 'action' => 'edit', $user->id], ['class' => 'button small']) ?>
     <?php endif; ?>
 </article>
-<article class="view">
+<article class="main-content view">
     <h2 class="view-title"><?= $user->username ?></h2>
     <div class="view-data-sup">
         <strong>Nom : </strong><?= h($user->lastname) ?>

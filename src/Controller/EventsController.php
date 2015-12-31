@@ -65,14 +65,14 @@ class EventsController extends AppController
         if ($this->request->is('post')) {
             $event = $this->Events->patchEntity($event, $this->request->data);
             if ($this->Events->save($event)) {
-                $this->Flash->success(__('The event has been saved.'));
+                $this->Flash->success(__('L\'événement a été créé.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The event could not be saved. Please, try again.'));
+                $this->Flash->error(__('L\'événement n\'a pas pu être créé. Veuillez réessayer.'));
             }
         }
         $this->set(compact('event'));
-        $this->set('games', $this->Events->Games->find('list'));
+        $this->set('games', $this->Events->Games->find('list', ['order' => ['title']]));
         $this->set('_serialize', ['event']);
     }
 
@@ -91,14 +91,14 @@ class EventsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $event = $this->Events->patchEntity($event, $this->request->data);
             if ($this->Events->save($event)) {
-                $this->Flash->success(__('The event has been saved.'));
+                $this->Flash->success(__('L\'événement a été modifié.'));
                 return $this->redirect(['action' => 'view', $event->id]);
             } else {
-                $this->Flash->error(__('The event could not be saved. Please, try again.'));
+                $this->Flash->error(__('L\'événement n\'a pas pu être modifié. Veuillez réessayer.'));
             }
         }
         $this->set(compact('event'));
-        $this->set('games', $this->Events->Games->find('list'));
+        $this->set('games', $this->Events->Games->find('list', ['order' => ['title']]));
         $this->set('_serialize', ['event']);
     }
 
@@ -114,9 +114,9 @@ class EventsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $event = $this->Events->get($id);
         if ($this->Events->delete($event)) {
-            $this->Flash->success(__('The event has been deleted.'));
+            $this->Flash->success(__('L\'événement a été supprimé.'));
         } else {
-            $this->Flash->error(__('The event could not be deleted. Please, try again.'));
+            $this->Flash->error(__('L\'événement n\'a pas pu être supprimé. Veuillez réessayer.'));
         }
         return $this->redirect(['action' => 'index']);
     }
@@ -143,6 +143,14 @@ class EventsController extends AppController
         return $this->redirect(['action' => 'view', $id]);
     }
 
+    /**
+     * Unjoin method
+     *
+     * @param string|null $id Event id.
+     * @param string|null $userid User id.
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
     public function unjoin($id = null, $userid = null) {
         if($this->Auth->user('role') !== 'admin' || $userid === null) $userid = $this->Auth->user('id');
         $this->request->allowMethod(['post', 'delete']);

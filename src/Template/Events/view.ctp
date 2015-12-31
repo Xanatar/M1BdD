@@ -19,10 +19,10 @@ $this->assign('title', 'Evénement : ' . h($event->title));
         <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $event->id], ['class' => 'button small alert', 'confirm' => __('Êtes-vous sûr de vouloir supprimer {0} ?', $event->title)]) ?>
     <?php endif; ?>
 </article>
-<article class="view">
+<article class="main-content view">
     <h2 class="view-title"><?= h($event->title) ?></h2>
     <div class="view-date"><?= $this->element('calendar-day', ['date' => $event->start]) ?></div>
-    <div class="view-description"><?= h($event->description) ?></div>
+    <p class="view-description"><?= h($event->description) ?></p>
     <div class="view-data-sup">
         <strong>Fin de l'événement : </strong><?= $event->end->i18nFormat('dd/MM/yyyy HH:mm') ?>
         <br>

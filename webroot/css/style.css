@@ -362,9 +362,27 @@ header {
   header .header-logo {
     height: 135px; }
 
-article.actions {
+p {
+  text-align: justify; }
+
+textarea {
+  resize: vertical; }
+
+.container {
+  padding-top: 20px; }
+
+.actions {
   text-align: center;
   margin: 25px; }
+
+.main-content {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto; }
+
+.input.select .checkbox {
+  display: inline-block;
+  width: 200px; }
 
 .calendar-one {
   display: inline-block;
@@ -442,8 +460,10 @@ article.actions {
       justify-content: space-between;
       font-size: .8em; }
     .event-list-item .event-data .event-description {
-      padding-left: 4px;
-      flex-grow: 1; }
+      margin: 0;
+      padding: 0 6px;
+      flex-grow: 1;
+      font-size: inherit; }
     .event-list-item .event-data .event-data-sup {
       width: 140px;
       flex-shrink: 0; }

@@ -9,9 +9,32 @@ header {
   }
 }
 
-article.actions {
+p {
+  text-align: justify;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.container {
+  padding-top: 20px;
+}
+
+.actions {
   text-align: center;
   margin: 25px;
+}
+
+.main-content {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.input.select .checkbox {
+  display: inline-block;
+  width: 200px;
 }
 
 .calendar-one {
@@ -114,8 +137,10 @@ article.actions {
     }
 
     .event-description {
-      padding-left: 4px;
+      margin: 0;
+      padding: 0 6px;
       flex-grow: 1;
+      font-size: inherit;
     }
 
     .event-data-sup {
