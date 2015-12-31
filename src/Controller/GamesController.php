@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\I18n\Time;
 
 /**
  * Games Controller
@@ -47,7 +48,13 @@ class GamesController extends AppController
     public function view($id = null)
     {
         $game = $this->Games->get($id, [
-            'contain' => ['Categories']
+            'contain' => [
+                'Events' => function($q) {
+                    return $q
+                        ->where(['Events.start >=' => Time::now()])
+                        ->order(['Events.start']);
+                }
+            ]
         ]);
         $this->set('game', $game);
         $this->set('_serialize', ['game']);

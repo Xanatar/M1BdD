@@ -16,6 +16,10 @@ $nav = [
         'url' => ['controller' => 'users', 'action' => 'index'],
         'txt' => 'Membres',
     ],
+    'info' => [
+        'url' => ['controller' => 'pages', 'action' => 'info'],
+        'txt' => 'Informations',
+    ],
 ];
 
 if(!$authUser) {
