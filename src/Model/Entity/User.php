@@ -36,7 +36,7 @@ class User extends Entity
 
     protected function _getUsername($username) {
         if(isset($this->_properties['role']) && $this->_properties['role'] === 'admin')
-            return '<i class="fa fa-star fa-fw"></i> ' . h($username);
+            return '<i class="fa fa-star fa-fw" title="Administrateur"></i> ' . h($username);
         else
             return h($username);
     }

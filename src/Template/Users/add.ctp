@@ -2,7 +2,7 @@
 $this->assign('title', $h1);
 $this->Html->script(/*\Cake\Core\Configure::read('reCAPTCHA.scriptFile')*/'https://www.google.com/recaptcha/api.js', ['block' => true]);
 ?>
-<article>
+<article class="main-content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend>Identifiants</legend>
@@ -22,6 +22,8 @@ $this->Html->script(/*\Cake\Core\Configure::read('reCAPTCHA.scriptFile')*/'https
         data-sitekey="<?= \Cake\Core\Configure::read('reCAPTCHA.publicKey') ?>"
         data-theme="light"
     ></div>
-    <?= $this->Form->submit(__('Créer le compte'), ['class' => 'button success']) ?>
+    <div class="actions">
+        <?= $this->Form->submit(__('Créer le compte'), ['class' => 'button success']) ?>
+    </div>
     <?= $this->Form->end() ?>
 </article>

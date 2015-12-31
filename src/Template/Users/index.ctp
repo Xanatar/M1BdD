@@ -3,7 +3,7 @@ $this->assign('title', 'Membres');
 ?>
 <article class="actions">
 </article>
-<article>
+<article class="main-content">
     <h3><?= __('Users') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

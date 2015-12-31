@@ -6,8 +6,7 @@ $this->assign('title', 'Jeux');
         <?= $this->Html->link('Nouveau', ['controller' => 'games', 'action' => 'add'], ['class' => 'button small']) ?>
     <?php endif; ?>
 </article>
-<article>
-    <h3><?= __('Games') ?></h3>
+<article class="main-content">
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -32,9 +31,9 @@ $this->assign('title', 'Jeux');
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->next(__('suivant') . ' >') ?>
         </ul>
         <p><?= $this->Paginator->counter() ?></p>
     </div>

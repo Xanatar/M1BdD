@@ -6,7 +6,7 @@ $nav = [
     ],
     'events' => [
         'url' => ['controller' => 'events', 'action' => 'index'],
-        'txt' => 'Évènements',
+        'txt' => 'Événements',
     ],
     'games' => [
         'url' => ['controller' => 'games', 'action' => 'index'],

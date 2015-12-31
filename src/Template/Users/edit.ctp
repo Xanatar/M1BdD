@@ -2,7 +2,7 @@
 <?php
 $this->assign('title', 'Modifier le compte');
 ?>
-<article>
+<article class="main-content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend>Identifiants</legend>
@@ -17,6 +17,8 @@ $this->assign('title', 'Modifier le compte');
         <?= $this->Form->input('lastname', ['label' => __('Nom')]) ?>
         <?= $this->Form->input('birthday', ['label' => __('Date de naissance'), 'type' => 'date', 'minYear' => 1910, 'maxYear' => date('Y')]) ?>
     </fieldset>
-    <?= $this->Form->submit(__('Enregistrer'), ['class' => 'button success']) ?>
+    <div class="actions">
+        <?= $this->Form->submit(__('Enregistrer'), ['class' => 'button success']) ?>
+    </div>
     <?= $this->Form->end() ?>
 </article>
