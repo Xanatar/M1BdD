@@ -31,7 +31,7 @@ class PagesController extends AppController
 
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
-        $this->Auth->allow(['home']);
+        $this->Auth->allow(['home', 'info']);
     }
 
     /**
@@ -71,5 +71,9 @@ class PagesController extends AppController
 
     public function home() {
         $this->set('h1', __('Accueil'));
+    }
+
+    public function info() {
+        $this->set('data', Configure::read('Website'));
     }
 }
