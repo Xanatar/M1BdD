@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\I18n\Time;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -15,7 +16,7 @@ class EventsController extends AppController
 
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
-        $this->Auth->allow(['index', 'view']);
+        $this->Auth->allow(['index', 'past', 'view']);
     }
 
     public function isAuthorized($user = null)
@@ -34,7 +35,19 @@ class EventsController extends AppController
      */
     public function index()
     {
-        $this->set('events', $this->Events->find('all', ['contain' => ['Users']]));
+        $this->set('events_kamoulox', $this->Events->find('all', ['contain' => ['Users'], 'conditions' => ['start <=' => Time::now(), 'end >=' => Time::now()], 'order' => ['start']]));
+        $this->set('events', $this->Events->find('all', ['contain' => ['Users'], 'conditions' => ['start >' => Time::now()], 'order' => ['start']]));
+        $this->set('_serialize', ['events']);
+    }
+
+    /**
+     * Past method
+     *
+     * @return void
+     */
+    public function past()
+    {
+        $this->set('events', $this->Events->find('all', ['contain' => ['Users'], 'conditions' => ['end <' => Time::now()], 'order' => ['start DESC']]));
         $this->set('_serialize', ['events']);
     }
 
