@@ -8,10 +8,10 @@ $this->assign('title', 'Membres');
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('username') ?></th>
-                <th><?= $this->Paginator->sort('lastname') ?></th>
-                <th><?= $this->Paginator->sort('firstname') ?></th>
-                <th><?= $this->Paginator->sort('birthday') ?></th>
+                <th><?= $this->Paginator->sort('username', 'Pseudonyme') ?></th>
+                <th><?= $this->Paginator->sort('lastname', 'Nom') ?></th>
+                <th><?= $this->Paginator->sort('firstname', 'Prénom') ?></th>
+                <th><?= $this->Paginator->sort('birthday', 'Date de naissance') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -27,9 +27,9 @@ $this->assign('title', 'Membres');
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->next(__('suivant') . ' >') ?>
         </ul>
         <p><?= $this->Paginator->counter() ?></p>
     </div>
