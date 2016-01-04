@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Entity;
 
+use Cake\I18n\Time;
 use Cake\ORM\Entity;
 
 /**
@@ -34,4 +35,12 @@ class Event extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    public function isFull() {
+        return count($this->_properties['users']) == $this->_properties['nb_max'];
+    }
+
+    public function isPast() {
+        return $this->_properties['start']->toUnixString() <= Time::now()->toUnixString() ;
+    }
 }

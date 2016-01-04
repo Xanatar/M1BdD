@@ -2,7 +2,7 @@
 $this->assign('title', 'Evénement : ' . h($event->title));
 ?>
 <article class="actions">
-    <?php if($authUser): ?>
+    <?php if(!$event->isPast() && $authUser): ?>
         <?php
         $test = false;
         foreach($event->users as $u) {
@@ -11,7 +11,11 @@ $this->assign('title', 'Evénement : ' . h($event->title));
         if($test): ?>
             <?= $this->Form->postLink(__('Se désinscrire'), ['action' => 'unjoin', $event->id], ['class' => 'button small alert', 'confirm' => __('Êtes-vous sûr de vouloir vous désinscrire de {0} ?', $event->title)]) ?>
         <?php else: ?>
-            <?= $this->Form->postLink(__('S\'inscrire'), ['action' => 'join', $event->id], ['class' => 'button small success', 'confirm' => __('Êtes-vous sûr de vouloir vous inscrire à {0} ?', $event->title)]) ?>
+            <?php if($event->isFull()): ?>
+                <?= $this->Html->link(__('Plus de place'), ['action' => 'join', $event->id], ['class' => 'button small disabled']) ?>
+            <?php else: ?>
+                <?= $this->Form->postLink(__('S\'inscrire'), ['action' => 'join', $event->id], ['class' => 'button small success', 'confirm' => __('Êtes-vous sûr de vouloir vous inscrire à {0} ?', $event->title)]) ?>
+            <?php endif; ?>
         <?php endif; ?>
     <?php endif; ?>
     <?php if($authUser && $authUser['role'] === 'admin'): ?>
