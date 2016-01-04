@@ -145,13 +145,17 @@ class EventsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $event = $this->Events->get($id, ['contain' => ['Users']]);
         $user = TableRegistry::get('Users')->get($this->Auth->user('id'));
-        $tmp = $event->users; // @see http://www.yiiframework.com/forum/index.php/topic/30830-indirect-modification-of-overloaded-property-modelrelation-has-no-effect/
-        $tmp[] = $user;
-        $event->users = $tmp;
-        if ($this->Events->save($event)) {
-            $this->Flash->success(__('Vous vous êtes inscrit à l\'événement.'));
+        if($event->isFull()) {
+            $this->Flash->error(__('Le nombre de participants maximum est déjà atteint.'));
         } else {
-            $this->Flash->error(__('Un problème lors de l\'inscription. Veuillez réessayer.'));
+            $tmp = $event->users; // @see http://www.yiiframework.com/forum/index.php/topic/30830-indirect-modification-of-overloaded-property-modelrelation-has-no-effect/
+            $tmp[] = $user;
+            $event->users = $tmp;
+            if ($this->Events->save($event)) {
+                $this->Flash->success(__('Vous vous êtes inscrit à l\'événement.'));
+            } else {
+                $this->Flash->error(__('Un problème lors de l\'inscription. Veuillez réessayer.'));
+            }
         }
         return $this->redirect(['action' => 'view', $id]);
     }
