@@ -8,7 +8,7 @@
 
 return [
     'Website' => [
-        'title' => 'Semi-Croustillants',
+        'title' => 'Jeux-Table',
         'authors' => [
             'Albasser Sylvain',
             'Bouyer Cyril',
@@ -17,7 +17,7 @@ return [
         ],
         'contact' => [
             'telephone' => '0836656565',
-            'email' => 'contact@semi-croustillants.fr',
+            'email' => 'contact@jeux-table.fr',
             'address' => '4, rue des Frères Lumière - 68200 Mulhouse',
             'geoposition' => '47.731365, 7.314114',
         ],

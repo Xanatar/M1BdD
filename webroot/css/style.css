@@ -362,6 +362,11 @@ header {
   header .header-logo {
     height: 135px; }
 
+footer {
+  padding: 50px 0 10px 0;
+  text-align: center;
+  font-size: .8em; }
+
 p {
   text-align: justify; }
 
@@ -471,6 +476,22 @@ textarea {
 .view .view-title {
   text-align: center; }
 .view .view-date {
+  text-align: center; }
+
+.img-circle {
+  width: 275px;
+  height: 206px; }
+
+.row.featurette {
+  margin: auto; }
+
+@media (min-width: 992px) {
+  .row.featurette {
+    width: 800px; } }
+.featurette-heading {
+  margin-top: 0 !important; }
+
+.row-link {
   text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

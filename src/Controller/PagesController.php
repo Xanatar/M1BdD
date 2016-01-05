@@ -16,7 +16,9 @@ namespace App\Controller;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\I18n\Time;
 use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
 
 /**
@@ -70,6 +72,9 @@ class PagesController extends AppController
     }
 
     public function home() {
+        $events = TableRegistry::get('Events');
+        $this->set('next', $events->find('all', ['conditions' => ['start >' => Time::now()], 'order' => 'start'])->first());
+        $this->set('previous', $events->find('all', ['conditions' => ['end <=' => Time::now()], 'order' => 'end DESC'])->first());
         $this->set('h1', __('Accueil'));
     }
 
