@@ -489,7 +489,7 @@ textarea {
   .row.featurette {
     width: 800px; } }
 .featurette-heading {
-  margin-top: 0; }
+  margin-top: 0 !important; }
 
 .row-link {
   text-align: center; }
