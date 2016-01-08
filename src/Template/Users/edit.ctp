@@ -7,8 +7,6 @@ $this->assign('title', 'Modifier le compte');
     <fieldset>
         <legend>Identifiants</legend>
         <?= $this->Form->input('username', ['label' => __('Pseudonyme')]) ?>
-        <?= $this->Form->input('password', ['label' => __('Mot de passe')]) ?>
-        <?= $this->Form->input('password_confirm', ['label' => __('Confirmation du mot de passe'), 'type' => 'password', 'required' => true]) ?>
     </fieldset>
     <fieldset>
         <legend>Informations supplémentaires</legend>

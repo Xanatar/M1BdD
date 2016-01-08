@@ -25,6 +25,13 @@ class UsersController extends AppController
             return true;
         }
 
+        if (in_array($this->request->action, ['edit', 'delete'])) {
+            $userid = (int)$this->request->params['pass'][0];
+            if ($userid == $user['id']) {
+                return true;
+            }
+        }
+
         return parent::isAuthorized($user);
     }
 

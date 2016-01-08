@@ -10,7 +10,7 @@ $this->assign('title', 'Membre : ' . $user->username);
             <?= $this->Form->postLink('Enlever admin', ['controller' => 'users', 'action' => 'demote', $user->id], ['class' => 'button small alert', 'confirme' => __('Êtes vous sûr de vouloir enlever le droits d\'admin au membre {0} ?', $user->username)]) ?>
         <?php endif; ?>
     <?php endif; ?>
-    <?php if($authUser && $authUser['id'] === $user->id): ?>
+    <?php if($authUser && ($authUser['id'] === $user->id || $authUser['role'] === 'admin')): ?>
         <?= $this->Html->link('Modifier', ['controller' => 'users', 'action' => 'edit', $user->id], ['class' => 'button small']) ?>
     <?php endif; ?>
 </article>
