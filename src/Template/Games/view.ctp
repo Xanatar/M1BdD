@@ -1,72 +1,36 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Game'), ['action' => 'edit', $game->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Game'), ['action' => 'delete', $game->id], ['confirm' => __('Are you sure you want to delete # {0}?', $game->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Games'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Game'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Category'), ['controller' => 'Categories', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="games view large-9 medium-8 columns content">
-    <h3><?= h($game->title) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Title') ?></th>
-            <td><?= h($game->title) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Description') ?></th>
-            <td><?= h($game->description) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($game->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Nb Min') ?></th>
-            <td><?= $this->Number->format($game->nb_min) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Nb Max') ?></th>
-            <td><?= $this->Number->format($game->nb_max) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Age Min') ?></th>
-            <td><?= $this->Number->format($game->age_min) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Age Max') ?></th>
-            <td><?= $this->Number->format($game->age_max) ?></td>
-        </tr>
-    </table>
-    <div class="related">
-        <h4><?= __('Related Categories') ?></h4>
-        <?php if (!empty($game->categories)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Label') ?></th>
-                <th><?= __('Description') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($game->categories as $categories): ?>
-            <tr>
-                <td><?= h($categories->id) ?></td>
-                <td><?= h($categories->label) ?></td>
-                <td><?= h($categories->description) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Categories', 'action' => 'view', $categories->id]) ?>
-
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Categories', 'action' => 'edit', $categories->id]) ?>
-
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Categories', 'action' => 'delete', $categories->id], ['confirm' => __('Are you sure you want to delete # {0}?', $categories->id)]) ?>
-
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
+<?php
+$this->assign('title', 'Jeu : ' . h($game->title));
+?>
+<article class="actions">
+    <?php if($authUser && $authUser['role'] === 'admin'): ?>
+        <?= $this->Html->link('Modifier', ['controller' => 'games', 'action' => 'edit', $game->id], ['class' => 'button small']) ?>
+        <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $game->id], ['class' => 'button small alert', 'confirm' => __('Êtes-vous sûr de vouloir supprimer {0} ?', $game->title)]) ?>
     <?php endif; ?>
+</article>
+<article class="main-content view">
+    <h2 class="view-title"><?= h($game->title) ?></h2>
+    <p class="view-description"><?= h($game->description) ?></p>
+    <div class="view-data-sup">
+        <strong>Âges : </strong><?php if($game->age_min === null && $game->age_max === null) echo __('Tous'); else { if($game->age_min !== null) echo __('à partir de {0} ans ', $this->Number->format($game->age_min)); if($game->age_max !== null) echo __('jusqu\'à {0} ans', $this->Number->format($game->age_max)); } ?>
+        <br>
+        <strong>Nombre de joueurs : </strong>minimum : <?= $this->Number->format($game->nb_min) ?>, maximum : <?= $this->Number->format($game->nb_max) ?>
     </div>
-</div>
+    <strong>Evénements associés :</strong>
+    <ul class="event-list">
+        <?php foreach ($game->events as $event): ?>
+            <li class="event-list-item">
+                <div class="event-date"><?= $this->element('calendar-day', ['date' => $event->start, 'onclick' => $this->Url->build(['controller' => 'events', 'action' => 'view', $event->id])]) ?></div>
+                <div class="event-data">
+                    <?= $this->Html->link($event->title, ['controller' => 'events', 'action' => 'view', $event->id], ['class' => 'event-title']) ?>
+                    <div class="event-data-content">
+                        <p class="event-description"><?= $this->Text->truncate($event->description, 150) ?></p>
+                        <div class="event-data-sup">
+                            <div class="event-players" title="<?= count($event->users) ?> joueurs participants pour <?= $this->Number->format($event->nb_max) ?> places"><i class="fa fa-users fa-fw"></i><?= $this->Number->format($event->nb_min) ?> - <?= $this->Number->format($event->nb_max) ?> (<?= count($event->users) ?>)</div>
+                            <div class="event-duration" title="Durée de l'évènement"><i class="fa fa-clock-o fa-fw"></i><?= $event->end->diffForHumans($event->start) ?></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</article>

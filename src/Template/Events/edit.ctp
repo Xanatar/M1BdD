@@ -1,30 +1,24 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $event->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $event->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Events'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="events form large-9 medium-8 columns content">
+<?php
+$this->assign('title', 'Modifier l\'événement');
+?>
+<article class="main-content">
     <?= $this->Form->create($event) ?>
     <fieldset>
-        <legend><?= __('Edit Event') ?></legend>
+        <legend><?= __('Informations') ?></legend>
         <?php
-            echo $this->Form->input('title');
-            echo $this->Form->input('description');
-            echo $this->Form->input('start');
-            echo $this->Form->input('end');
-            echo $this->Form->input('nb_min');
-            echo $this->Form->input('nb_max');
-            echo $this->Form->input('age_min');
-            echo $this->Form->input('age_max');
+        echo $this->Form->input('title', ['label' => __('Titre')]);
+        echo $this->Form->input('description');
+        echo $this->Form->input('start', ['label' => __('Date de début')]);
+        echo $this->Form->input('end', ['label' => __('Date de fin')]);
+        echo $this->Form->input('nb_min', ['label' => __('Nombre de participants minimum')]);
+        echo $this->Form->input('nb_max', ['label' => __('Nombre de places')]);
+        echo $this->Form->input('age_min', ['label' => __('Age minimum requis')]);
+        echo $this->Form->input('age_max', ['label' => __('Age maximum')]);
+        echo $this->Form->input('games._ids', ['label' => __('Jeux'), 'multiple' => 'checkbox']); // @see http://book.cakephp.org/3.0/fr/views/helpers/form.html#creation-d-elements-de-formulaire
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <div class="actions">
+        <?= $this->Form->button(__('Enregistrer'), ['class' => 'button success']) ?>
+    </div>
     <?= $this->Form->end() ?>
-</div>
+</article>

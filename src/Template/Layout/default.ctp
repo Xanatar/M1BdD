@@ -21,10 +21,10 @@
     <?= $this->fetch('meta') ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= \Cake\Core\Configure::read('Website.title') ?> - <?= $this->fetch('title') ?>
+        <?= \Cake\Core\Configure::read('Website.title') ?> - <?= strip_tags($this->fetch('title')) ?>
     </title>
 
-    <?= $this->Html->css(['base', 'cake', 'foundation', 'style']) ?>
+    <?= $this->Html->css(['base', 'cake'/*, 'foundation'*/, 'font-awesome', 'style']) ?>
     <?= $this->fetch('css') ?>
 </head>
 <body>

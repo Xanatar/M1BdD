@@ -1,29 +1,22 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
+
+<?php
+$this->assign('title', 'Modifier le compte');
+?>
+<article class="main-content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Edit User') ?></legend>
-        <?php
-            echo $this->Form->input('username');
-            echo $this->Form->input('password');
-            echo $this->Form->input('lastname');
-            echo $this->Form->input('firstname');
-            echo $this->Form->input('gender');
-            echo $this->Form->input('birthday');
-            echo $this->Form->input('email');
-        ?>
+        <legend>Identifiants</legend>
+        <?= $this->Form->input('username', ['label' => __('Pseudonyme')]) ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <fieldset>
+        <legend>Informations supplémentaires</legend>
+        <?= $this->Form->input('email', ['label' => __('Adresse email')]) ?>
+        <?= $this->Form->input('firstname', ['label' => __('Prénom')]) ?>
+        <?= $this->Form->input('lastname', ['label' => __('Nom')]) ?>
+        <?= $this->Form->input('birthday', ['label' => __('Date de naissance'), 'type' => 'date', 'minYear' => 1910, 'maxYear' => date('Y')]) ?>
+    </fieldset>
+    <div class="actions">
+        <?= $this->Form->submit(__('Enregistrer'), ['class' => 'button success']) ?>
+    </div>
     <?= $this->Form->end() ?>
-</div>
+</article>

@@ -1,23 +1,29 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
+<?php
+$this->assign('title', $h1);
+$this->Html->script(/*\Cake\Core\Configure::read('reCAPTCHA.scriptFile')*/'https://www.google.com/recaptcha/api.js', ['block' => true]);
+?>
+<article class="main-content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Add User') ?></legend>
-        <?php
-            echo $this->Form->input('username');
-            echo $this->Form->input('password');
-            echo $this->Form->input('lastname');
-            echo $this->Form->input('firstname');
-            echo $this->Form->input('gender');
-            echo $this->Form->input('birthday');
-            echo $this->Form->input('email');
-        ?>
+        <legend>Identifiants</legend>
+        <?= $this->Form->input('username', ['label' => __('Pseudonyme')]) ?>
+        <?= $this->Form->input('password', ['label' => __('Mot de passe')]) ?>
+        <?= $this->Form->input('password_confirm', ['label' => __('Confirmation du mot de passe'), 'type' => 'password', 'required' => true]) ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <fieldset>
+        <legend>Informations supplémentaires</legend>
+        <?= $this->Form->input('email', ['label' => __('Adresse email')]) ?>
+        <?= $this->Form->input('firstname', ['label' => __('Prénom')]) ?>
+        <?= $this->Form->input('lastname', ['label' => __('Nom')]) ?>
+        <?= $this->Form->input('birthday', ['label' => __('Date de naissance'), 'type' => 'date', 'minYear' => 1910, 'maxYear' => date('Y')]) ?>
+    </fieldset>
+    <div
+        class="g-recaptcha"
+        data-sitekey="<?= \Cake\Core\Configure::read('reCAPTCHA.publicKey') ?>"
+        data-theme="light"
+    ></div>
+    <div class="actions">
+        <?= $this->Form->submit(__('Créer le compte'), ['class' => 'button success']) ?>
+    </div>
     <?= $this->Form->end() ?>
-</div>
+</article>

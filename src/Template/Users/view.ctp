@@ -1,46 +1,26 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="users view large-9 medium-8 columns content">
-    <h3><?= h($user->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Username') ?></th>
-            <td><?= h($user->username) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Password') ?></th>
-            <td><?= h($user->password) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Lastname') ?></th>
-            <td><?= h($user->lastname) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Firstname') ?></th>
-            <td><?= h($user->firstname) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Email') ?></th>
-            <td><?= h($user->email) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($user->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Birthday') ?></th>
-            <td><?= h($user->birthday) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Gender') ?></th>
-            <td><?= $user->gender ? __('Yes') : __('No'); ?></td>
-         </tr>
-    </table>
-</div>
+<?php
+$this->assign('title', 'Membre : ' . $user->username);
+?>
+<article class="actions">
+    <?php if($authUser && $authUser['role'] === 'admin'): ?>
+        <?= $this->Form->postLink('Supprimer', ['controller' => 'users', 'action' => 'delete', $user->id], ['class' => 'button small alert', 'confirme' => __('Êtes vous sûr de vouloir supprimer le membre {0} ?', $user->username)]) ?>
+        <?php if($user->role !== 'admin'): ?>
+            <?= $this->Form->postLink('Rendre admin', ['controller' => 'users', 'action' => 'promote', $user->id], ['class' => 'button small success', 'confirme' => __('Êtes vous sûr de vouloir rendre admin le membre {0} ?', $user->username)]) ?>
+        <?php else: ?>
+            <?= $this->Form->postLink('Enlever admin', ['controller' => 'users', 'action' => 'demote', $user->id], ['class' => 'button small alert', 'confirme' => __('Êtes vous sûr de vouloir enlever le droits d\'admin au membre {0} ?', $user->username)]) ?>
+        <?php endif; ?>
+    <?php endif; ?>
+    <?php if($authUser && ($authUser['id'] === $user->id || $authUser['role'] === 'admin')): ?>
+        <?= $this->Html->link('Modifier', ['controller' => 'users', 'action' => 'edit', $user->id], ['class' => 'button small']) ?>
+    <?php endif; ?>
+</article>
+<article class="main-content view">
+    <h2 class="view-title"><?= $user->username ?></h2>
+    <div class="view-data-sup">
+        <strong>Nom : </strong><?= h($user->lastname) ?>
+        <br>
+        <strong>Prénom : </strong><?= h($user->firstname) ?>
+        <br>
+        <strong>Anniversaire : </strong><?= $this->element('calendar-day', ['date' => $user->birthday, 'time' => false]) ?>
+    </div>
+</article>

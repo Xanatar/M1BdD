@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $title
- * @property string $description
+ * @property text $description
  * @property int $nb_min
  * @property int $nb_max
  * @property int $age_min

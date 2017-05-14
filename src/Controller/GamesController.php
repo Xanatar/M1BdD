@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\I18n\Time;
 
 /**
  * Games Controller
@@ -10,6 +12,20 @@ use App\Controller\AppController;
  */
 class GamesController extends AppController
 {
+
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['index', 'view']);
+    }
+
+    public function isAuthorized($user = null)
+    {
+        if (in_array($this->request->action, ['index', 'view'])) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+    }
 
     /**
      * Index method
@@ -32,7 +48,13 @@ class GamesController extends AppController
     public function view($id = null)
     {
         $game = $this->Games->get($id, [
-            'contain' => ['Categories']
+            'contain' => [
+                'Events' => function($q) {
+                    return $q
+                        ->where(['Events.start >=' => Time::now()])
+                        ->order(['Events.start']);
+                }
+            ]
         ]);
         $this->set('game', $game);
         $this->set('_serialize', ['game']);

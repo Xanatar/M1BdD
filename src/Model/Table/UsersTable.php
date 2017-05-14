@@ -65,9 +65,9 @@ class UsersTable extends Table
             ->allowEmpty('gender');
 
         $validator
-            ->add('birthday', 'valid', ['rule' => 'date'])
+            ->add('birthday', 'valid', ['rule' => 'date', 'message' => __('La date n\'est pas valide.')])
             ->requirePresence('birthday', 'create')
-            ->notEmpty('birthday');
+            ->notEmpty('birthday', __('Une date de naissance est nécessaire.'));
 
         $validator
             ->add('email', 'valid', ['rule' => 'email'])

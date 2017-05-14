@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property bool $gender
  * @property \Cake\I18n\Time $birthday
  * @property string $email
+ * @property string $role
  */
 class User extends Entity
 {
@@ -32,6 +33,13 @@ class User extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    protected function _getUsername($username) {
+        if(isset($this->_properties['role']) && $this->_properties['role'] === 'admin')
+            return '<i class="fa fa-star fa-fw" title="Administrateur"></i> ' . h($username);
+        else
+            return h($username);
+    }
 
     protected function _setEmail($email) {
         if (strlen($email) > 0) {

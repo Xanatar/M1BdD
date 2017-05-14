@@ -8,12 +8,18 @@
 
 return [
     'Website' => [
-        'title' => 'Semi-Croustillants',
+        'title' => 'Jeux-Table',
         'authors' => [
             'Albasser Sylvain',
             'Bouyer Cyril',
             'Kemps Alrick',
             'Roth Blandine',
+        ],
+        'contact' => [
+            'telephone' => '0836656565',
+            'email' => 'contact@jeux-table.fr',
+            'address' => '4, rue des Frères Lumière - 68200 Mulhouse',
+            'geoposition' => '47.731365, 7.314114',
         ],
     ]
 ];
